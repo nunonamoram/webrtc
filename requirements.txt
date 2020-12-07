@@ -1,0 +1,8 @@
+flask==1.1.2
+ffmpy
+tensorflow==1.15
+keras==2.3.1
+librosa
+matplotlib
+pydub==0.24.1
+torch
