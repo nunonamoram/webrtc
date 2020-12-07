@@ -5,4 +5,4 @@ keras==2.3.1
 librosa
 matplotlib
 pydub==0.24.1
-torch
+
