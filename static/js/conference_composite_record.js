@@ -139,7 +139,7 @@ let $1 = $(function() {
         document.getElementById('title').innerHTML = conferenceName;
         // Join conference
         joinConference(conferenceName);
-        document.getElementById('recordStart').style.display = 'inline-block';
+        //document.getElementById('recordStart').style.display = 'inline-block';
         
     });
 

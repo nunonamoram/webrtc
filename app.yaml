@@ -1,12 +1,20 @@
-# [START gae_python38_cloudsql_config]
-runtime: python37
+runtime: custom
+env: flex
+entrypoint: gunicorn -b :$PORT main:app
+runtime_config:
+    python_version: 3
 
-env_variables:
-  CLOUD_SQL_USERNAME: postgres
-  CLOUD_SQL_PASSWORD: nuno
-  CLOUD_SQL_DATABASE_NAME: guestbook
-  CLOUD_SQL_CONNECTION_NAME: testing-295318:us-central1:teste
-# [END gae_python38_cloudsql_config]
+
+# This sample incurs costs to run on the App Engine flexible environment. 
+# The settings below are to reduce costs during testing and are not appropriate
+# for production use. For more information, see:
+# https://cloud.google.com/appengine/docs/flexible/python/configuring-your-app-with-app-yaml
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 2
+  memory_gb: 5
+  disk_size_gb: 100
 
 handlers:
 - url: /css
