@@ -14,13 +14,15 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends build-essent
                                         libsndfile1 
 # Copy the application's requirements.txt and run pip to install all
 # dependencies into the virtualenv.
+RUN apt-get install -y ffmpeg
 ADD requirements.txt /app/requirements.txt
 RUN pip install -r /app/requirements.txt
 RUN pip install tensorflow 'h5py < 3.0.0'
+
 
 # Add the application source code.
 ADD . /app
 
 # Run a WSGI server to serve the application. gunicorn must be declared as
 # a dependency in requirements.txt.
-CMD gunicorn -b :$PORT main:app
+CMD gunicorn -b :$PORT --workers=2 --threads=4 --worker-class=gthread main:app

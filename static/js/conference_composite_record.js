@@ -332,6 +332,7 @@ let $1 = $(function() {
         let formData = new FormData();
         formData.append("file", passaudio)
         console.log('SAVEFILE')
+        /*
         $.ajax({
             type: 'POST',
             url: '/uploadLabel',
@@ -343,9 +344,9 @@ let $1 = $(function() {
                 console.log('Success!');
             },
         });
-        
-        //await fetch('upload.php', {method: "POST", body: formData});
-        alert('Sucess')
+        */
+        await fetch('/uploadLabel', {method: "POST", body: formData});
+        alert('Sucess23')
     }
      
      

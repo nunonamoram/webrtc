@@ -33,7 +33,7 @@ parser.add_argument('--loss', default='softmax', choices=['softmax', 'amsoftmax'
 parser.add_argument('--test_type', default='normal', choices=['normal', 'hard', 'extend'], type=str)
 
 global args
-args = parser.parse_args()
+args, unknown = parser.parse_known_args()
 
 
 SAVED_MODEL_NAME = 'pretrained/saved_model.uisrnn_benchmark'

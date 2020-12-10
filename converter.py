@@ -1,6 +1,6 @@
 import os
 import ffmpy
-import speechEmotionRecognition as sp
+#import speechEmotionRecognition as sp
 
 
 
@@ -20,8 +20,8 @@ def converter():
 			print ("Successfully created the directory %s " % outputdir_final)
 		if(filename.endswith(".mp4")):
 			os.system('ffmpeg -i {} -acodec pcm_s16le -ar 16000 {}/{}.wav'.format(os.path.join(inputdir, filename), outputdir_final, actual_filename))
-			os.remove(os.path.join(inputdir, filename))
-			sp.init()
+			#os.remove(os.path.join(inputdir, filename))
+			#sp.init()
 		else:
 			continue
 	

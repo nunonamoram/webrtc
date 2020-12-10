@@ -19,7 +19,7 @@ from keras.callbacks import ModelCheckpoint
 import sys
 import librosa
 import bulkDiarize as bk
-#model = keras.models.load_model('model/lstm_cnn_rectangular_lowdropout_trainedoncustomdata.h5')
+model = keras.models.load_model('model/lstm_cnn_rectangular_lowdropout_trainedoncustomdata.h5')
 
 classes = ['Neutral', 'Happy', 'Sad',
            'Angry', 'Fearful', 'Disgusted', 'Surprised']
@@ -28,7 +28,6 @@ classes = ['Neutral', 'Happy', 'Sad',
 def predict(folder, classes, model):
     solutions = []
     filenames=[]
-    
     for subdir in os.listdir(folder):
         #print(subdir)
         
@@ -46,7 +45,7 @@ def predict(folder, classes, model):
             temp[0] = result
             t = np.expand_dims(temp,axis=3)
             #print(t)
-            #model = keras.models.load_model('model/lstm_cnn_rectangular_lowdropout_trainedoncustomdata.h5')
+            model = keras.models.load_model('model/lstm_cnn_rectangular_lowdropout_trainedoncustomdata.h5')
             ans=model.predict_classes(t)
             #print(ans)
             # print("SOL",classes[ans[0]])
@@ -60,6 +59,7 @@ def predict(folder, classes, model):
 
 #if __name__ == '__main__':
 def init():
+    
     INPUT_FOLDER_PATH = "input/"
     OUTPUT_FOLDER_PATH = "output/"
     # bk.diarizeFromFolder(INPUT_FOLDER_PATH,OUTPUT_FOLDER_PATH)
@@ -68,7 +68,7 @@ def init():
         bk.diarizeFromFolder(f'{INPUT_FOLDER_PATH}{subdir}{"/"}',(f'{OUTPUT_FOLDER_PATH}{subdir}{"/"}'))
         print("Diarized",subdir)
         #shutil.rmtree(os.path.join(INPUT_FOLDER_PATH, subdir))
-    model = keras.models.load_model('model/lstm_cnn_rectangular_lowdropout_trainedoncustomdata.h5')
+
     folder = OUTPUT_FOLDER_PATH
     for subdir in os.listdir(folder):
         predictions,filenames = predict(f'{folder}{"/"}{subdir}', classes, model)
@@ -83,4 +83,5 @@ def init():
         #shutil.rmtree(os.path.join(OUTPUT_FOLDER_PATH, subdir))
         
     os.remove("filterTemp.wav")
+  
     return "ola"
