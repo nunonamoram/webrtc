@@ -65,22 +65,24 @@ def init():
     # bk.diarizeFromFolder(INPUT_FOLDER_PATH,OUTPUT_FOLDER_PATH)
     
     for subdir in os.listdir(INPUT_FOLDER_PATH):
-        bk.diarizeFromFolder(f'{INPUT_FOLDER_PATH}{subdir}{"/"}',(f'{OUTPUT_FOLDER_PATH}{subdir}{"/"}'))
-        print("Diarized",subdir)
-        #shutil.rmtree(os.path.join(INPUT_FOLDER_PATH, subdir))
+        if subdir != 'boon':
+            bk.diarizeFromFolder(f'{INPUT_FOLDER_PATH}{subdir}{"/"}',(f'{OUTPUT_FOLDER_PATH}{subdir}{"/"}'))
+            print("Diarized",subdir)
+            shutil.rmtree(os.path.join(INPUT_FOLDER_PATH, subdir))
     model = keras.models.load_model('model/lstm_cnn_rectangular_lowdropout_trainedoncustomdata.h5')
     folder = OUTPUT_FOLDER_PATH
     for subdir in os.listdir(folder):
-        predictions,filenames = predict(f'{folder}{"/"}{subdir}', classes, model)
-        # print("filename:",filenames,",Predictions:",predictions)
-        with open('SER_'+subdir+'.csv', 'w') as csvFile:
-            writer = csv.writer(csvFile)
-            for i in range(len(filenames)):
-                csvData = [filenames[i], 'person01',predictions[i][0],'person02',predictions[i][1]]
-                print("filename:",filenames[i],",Predicted Emotion := Person1:",predictions[i][0],",Person2:",predictions[i][1])
-                writer.writerow(csvData)
-        csvFile.close()
-        #shutil.rmtree(os.path.join(OUTPUT_FOLDER_PATH, subdir))
+        if subdir != 'boon':
+            predictions,filenames = predict(f'{folder}{"/"}{subdir}', classes, model)
+            # print("filename:",filenames,",Predictions:",predictions)
+            with open('SER_'+subdir+'.csv', 'w') as csvFile:
+                writer = csv.writer(csvFile)
+                for i in range(len(filenames)):
+                    csvData = [filenames[i], 'person01',predictions[i][0],'person02',predictions[i][1]]
+                    print("filename:",filenames[i],",Predicted Emotion := Person1:",predictions[i][0],",Person2:",predictions[i][1])
+                    writer.writerow(csvData)
+            csvFile.close()
+            shutil.rmtree(os.path.join(OUTPUT_FOLDER_PATH, subdir))
         
     os.remove("filterTemp.wav")
     return "ola"

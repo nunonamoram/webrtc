@@ -16,37 +16,30 @@ def login():
    
 @app.route('/uploadLabel',methods=['GET','POST'])
 def uploadLabel():
-    '''
     try:
-    '''
-    for dirname, dirnames, filenames in os.walk('.'):
-        # print path to all subdirectories first.
-        for subdirname in dirnames:
-            print(os.path.join(dirname, subdirname))
+        for dirname, dirnames, filenames in os.walk('.'):
+            # print path to all subdirectories first.
+            for subdirname in dirnames:
+                print(os.path.join(dirname, subdirname))
 
-        # print path to all filenames.
-        for filename in filenames:
-            print(os.path.join(dirname, filename))
-    print('ENTREI AQUI')
-    isthisFile=request.files.get('file')
-    print(isthisFile)
-    print(isthisFile.filename)
-    isthisFile.save("./input1/"+isthisFile.filename)
-    print('guardou')
-    conv.converter()
-        
-    '''    
+            # print path to all filenames.
+            for filename in filenames:
+                print(os.path.join(dirname, filename))
+        print('ENTREI AQUI')
+        isthisFile=request.files.get('file')
+        print(isthisFile)
+        print(isthisFile.filename)
+        isthisFile.save("./input1/"+isthisFile.filename)
+        print('guardou')
+        conv.converter()   
     except:
         print('Algo aconteceu')
-    '''
     return redirect(url_for('login'))
 
 
 @app.route('/novo',methods=['GET','POST'])
 def novo():
     sp.init()
-    #x=subprocess.check_output(['python', 'test.py'])
-    #print(x)
     return "CONSEGUIIIIIIIIII"
 
 if __name__ == "__main__": 
